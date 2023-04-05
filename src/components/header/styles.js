@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 
     display: flex;
-    justify-content: ${props => props.showInput ? "space-between" : "end"};
+    justify-content: space-between;
     align-items: center;
     
     padding: 1rem 8rem;
@@ -31,31 +31,44 @@ export const Container = styled.div`
     }
 
     .profile-with-img {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1.4rem;
-
-        border: 1px solid #fff;
-        border-radius: 10px;
-
-        >img {
-            height: 6rem;
-            
-            border-radius: 50%;
+        :hover {
+            filter: none;
         }
-
-        > .username {
+        
+        > div {
             display: flex;
-            flex-direction: column;  
-            gap: 5px;
+            align-items: center;
+            gap: 1rem;
 
-            > span {
-                font-size: 1.3rem;
-                color: #f3f3f3;
+            padding: 1.4rem;
+
+            border: 1px solid #fff;
+            border-radius: 10px;
+
+
+            >img {
+                height: 6rem;
+                
+                border-radius: 50%;
+            }
+    
+            > .username {
+                display: flex;
+                flex-direction: column;  
+                gap: 5px;
+    
+                > span {
+                    font-size: 1.3rem;
+                    color: #f3f3f3;
+                }
+                
+                > strong {
+                    color: #fff;
+                }
             }
         }
-    }
+        }
+
 
 `
 export const Logout = styled.button `

@@ -7,20 +7,26 @@ import { FaSearch } from 'react-icons/fa'
 import { Input } from "../input"
 import { Link } from "react-router-dom";
 
+import { useAuth } from '../../hooks/auth'
+
 export function Header ({showInput, setSearchPerson}) {
+
+    const { singOut } = useAuth()
+
     return(
         <Container showInput={showInput}  >
            
            <div className="profile">          
-
-                <div className="profile-with-img">
-                    <img src="https://github.com/wesleynunessilva.png" alt="" />
-
-                    <div className="username">
-                        <span>Bem-vindo.</span>
-                        <strong>Wesley Nunes</strong>
-                    </div>
-                </div>
+                <Link to='/' className="profile-with-img">
+                    <div className="">
+                        <img src="https://github.com/wesleynunessilva.png" alt="" />
+                        <div className="username">
+                            <span>Bem-vindo.</span>
+                            <strong>Wesley Nunes</strong>                        
+                        </div>
+                     </div>
+                </Link>
+                
 
                 <button>
                     <IoNotifications size={25}/>
@@ -36,7 +42,7 @@ export function Header ({showInput, setSearchPerson}) {
               onChange={(e) => setSearchPerson(e.target.value)} 
             />
 
-            <Logout>
+            <Logout onClick={singOut}>
                 <RiShutDownLine />
             </Logout>
         </Container>

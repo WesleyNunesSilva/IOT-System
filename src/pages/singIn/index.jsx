@@ -1,13 +1,11 @@
 import { useState } from 'react'
-import { useAuth } from '../../hooks/auth.context'
-//import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth'
 
 import { Background, Container, Form } from './styles'
 
 import Logo from '../../assets/Logo [Branco].svg'
 
 export function SingIn () {
-  //const navigate = useNavigate()
 
   const { singIn } = useAuth()
 
@@ -24,8 +22,6 @@ export function SingIn () {
   function handleSingIn(event) {
     event.preventDefault();   
     singIn(user)
-
-    //navigate('/clientList')
   }
 
   const handleChangeEmail = (event) => {
@@ -95,5 +91,5 @@ export function SingIn () {
       </Form>
       <Background />
     </Container>
-    )
+  )
 }

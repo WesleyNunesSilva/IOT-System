@@ -4,11 +4,9 @@ import ReactDOM from 'react-dom/client'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyles from '../styles/global'
 import Theme from '../styles/theme'
-import { AuthProvider } from './hooks/auth.context'
+import { AuthProvider } from './hooks/auth'
 
 import { Routes } from './routes'
-
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -18,5 +16,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Routes/>
       </AuthProvider>
     </ThemeProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
