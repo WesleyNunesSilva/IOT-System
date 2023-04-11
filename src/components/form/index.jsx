@@ -1,37 +1,36 @@
+import axios from "axios";
+
 import { useState } from "react";
 import { Form, Input} from './styles'
 
-import { useAuth } from "../../hooks/auth";
+import validations from "./validation";
 
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function FormRegister() {
 
-  const { userRegister } = useAuth()
+  const navigate = useNavigate()
 
   const [user, setUser] = useState({
     data:{
-      type: "users",
+      type: "clients",
       attributes: {  
-        username:'',
+        name:'',
         email: '',
-        state:'',
-        city:'',
-        cel:'',
-        password: '',
-        device:'',
+        phone: '',
+        address: '',
       }
     }
   });
 
-  const handleChangeUsername = (event) => {
+  const handleChangename = (event) => {
     setUser({
       ...user,
       data: {
         ...user.data,
         attributes: {
           ...user.data.attributes, 
-          email: event.target.value 
+          name: event.target.value 
         }
       }
     });
@@ -50,63 +49,60 @@ const handleChangeEmail = (event) => {
   });
 };
 
-const handleChangeState = (event) => {
+const handleChangeAddress = (event) => {
   setUser({
     ...user,
     data: {
       ...user.data,
       attributes: {
         ...user.data.attributes, 
-        state: event.target.value 
+        address: event.target.value 
       }
     }
   });
 };
 
-const handleChangeCity = (event) => {
+const handleChangePhone = (event) => {
   setUser({
     ...user,
     data: {
       ...user.data,
       attributes: {
         ...user.data.attributes, 
-        city: event.target.value 
+        phone: event.target.value 
       }
     }
   });
 };
 
-const handleChangeCel = (event) => {
-  setUser({
-    ...user,
-    data: {
-      ...user.data,
-      attributes: {
-        ...user.data.attributes, 
-        cel: event.target.value 
-      }
-    }
-  });
-}; 
-
-const handleChangePassword = (event) => {
-  setUser({
-    ...user,
-    data: {
-      ...user.data,
-      attributes: {
-        ...user.data.attributes, 
-        password: event.target.value 
-      }
-    }
-  });
-};
-
-function handleRegister (event) {
+async function handleUserRegister(event) {
   event.preventDefault();
-  userRegister()
-  
-};
+  try {   
+
+      await validations.validate(user.data);
+      const response = await axios.post("http://localhost:3000/clients/register", user, {
+          headers: { 'Content-Type': 'application/vnd.api+json' }
+      })
+      console.log(response)
+      axios.defaults.headers.post["Content-Type"] = 'application/vnd.api+json'
+
+      alert('Cliente cadastrado com sucesso')
+      navigate('/')
+  } catch (error) {
+      if(error.response) {
+        alert(error.response.data.errors[0].title)
+          console.log(error.response)
+          console.log(error.message)
+
+          console.log(user)
+      } else {
+        alert('Ocorreu um erro ao enviar os dados. Por favor, tente novamente.')
+
+        console.log(error)
+        console.log(user)
+      }
+  }
+}
 
   return (
     <Form >
@@ -118,7 +114,7 @@ function handleRegister (event) {
           type='text'
           className='input-register'
           id='name'
-          onChange={handleChangeUsername}
+          onChange={handleChangename}
         />
       </div>
 
@@ -132,59 +128,35 @@ function handleRegister (event) {
         />
       </div>
 
-      <div className="content-state " >
-        
-      <div className="state content-input">
-        <label htmlFor="state">Estado</label>
+      <div className="adress content-input">
+        <label htmlFor="adress">Endereço</label>
           <Input 
             type='text'
             className='input-register'
-            id='state'
-            onChange={handleChangeState}                       
+            id='adress'
+            onChange={handleChangeAddress}
           />
-      </div>
-                
-        <div className="city content-input">
-          <label htmlFor="city">Cidade</label>
-            <Input 
-              type='text'
-              className='input-register'
-              id='city' 
-              onChange={handleChangeCity}                    
-            />
-        </div>
-
-        <div className="cel content-input">
-          <label htmlFor="cel">Celular</label>
-          <Input
-            type='number' 
-            className='input-register'
-            id='cel'
-            onChange={handleChangeCel}                           
-          />
-        </div>
-
       </div>
 
       <div className="password content-input">
-        <label htmlFor="password">password</label>
+        <label htmlFor="password">Celular</label>
           <Input 
             type='password'
             className='input-register'
             id='password'
-            onChange={handleChangePassword}
+            onChange={handleChangePhone}
           />
       </div>
 
-        <div>
-            <button
-              type="submit" 
-              className="add-client"
-              onClick={handleRegister}
-            >
-                Adicionar
-            </button>
-        </div>
+      <div>
+          <button
+            type="submit" 
+            className="add-client"
+            onClick={handleUserRegister}
+          >
+            Adicionar
+          </button>
+      </div>
     </Form>
     
   )

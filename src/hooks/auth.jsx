@@ -1,41 +1,12 @@
-import { useContext, createContext, useState, useEffect} from "react";
-import validations from "../pages/singIn/validation";
 import axios from "axios";
+import validations from "../pages/singIn/validation";
+import { useContext, createContext, useState, useEffect} from "react";
 
 export const AuthContext = createContext({})
 
 function AuthProvider ({children}) {
+
     const [data, setData] = useState({})
-
-    async function userRegister(user) {
-        try {   
-    
-            //await validations.validate(user.data);
-            const response = await axios.post("http://localhost:3000/users/register", user, {
-                headers: { 'Content-Type': 'application/vnd.api+json' }
-            })
-            console.log(response)
-            axios.defaults.headers.post["Content-Type"] = 'application/vnd.api+json'
-
-            alert('Cliente cadastrado com sucesso')
-          } catch (error) {
-            if(error.response) {
-                console.log(error.response)
-                console.log(error.message)
-                console.log(response)
-                console.loge(error)
-                console.log(user)
-                alert(error.response.data.errors[0].title)
-
-          } else {
-              alert('Ocorreu um erro ao enviar os dados. Por favor, tente novamente.')
-              console.log(response)
-              console.loge(error)
-              console.log(user)
-          }
-          }
-    }
-
 
     async function singIn (user) {
         try {   
@@ -44,8 +15,8 @@ function AuthProvider ({children}) {
                 headers: {'Content-Type': 'application/vnd.api+json'}
             })
 
-            const {access_token} = response.data.data.attributes
-            
+            const {access_token} = response.data.meta
+
             sessionStorage.setItem('@SUMedical-IOT:token', JSON.stringify(access_token))
             sessionStorage.setItem('@SUMedical-IOT:user', JSON.stringify(user.data))
             
@@ -54,12 +25,16 @@ function AuthProvider ({children}) {
 
             setData({user ,access_token})
 
+            console.log(response.data)
+
         } catch (error) {
             if(error.response) {
                 console.log(user)
                 alert(error.response.data.errors[0].title)
           } else {
             alert('Não foi possivel entrar')
+
+            console.log(error)
           }
         }
     }
@@ -87,8 +62,7 @@ function AuthProvider ({children}) {
             value={{ 
               singIn, 
               user:data.user,
-              singOut,
-              userRegister
+              singOut
             }}>
             {children}
         </AuthContext.Provider>

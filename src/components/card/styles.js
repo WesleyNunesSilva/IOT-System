@@ -8,11 +8,21 @@ export const Container = styled.tr `
     &:nth-child(even) {
         background-color: #fff1;
     }
-    
+
+    a {
+        color: #000;
+        :hover{
+            filter: none;
+        }
+    }
+
     > td {
+        padding: 1rem; 
         
-        padding: 1rem;
-        
+        > a {
+            flex: 1;
+        }
+    
     }
 
     .status {
@@ -20,6 +30,7 @@ export const Container = styled.tr `
 
         display: flex;
         justify-content: center;
+        
         width: 100%;
         border-radius: 10px;
         color: #fff;

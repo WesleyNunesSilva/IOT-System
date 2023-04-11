@@ -8,13 +8,11 @@ export const Container = styled.thead `
         text-align: center;
     }
 
-    >tr {
-        
+    >tr {       
         > th {
             padding:  0.5rem 1rem;
             margin-left: 1rem;
             text-align: start;
         }
-
     }
 `

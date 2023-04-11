@@ -11,7 +11,6 @@ export const Container = styled.div`
     justify-content: center;
     font-family: 'Poppins', sans-serif;
 `
-
 export const Form = styled.form `
     padding: 0 13.6rem;
 
@@ -47,7 +46,7 @@ export const Form = styled.form `
     >span{
         margin-top: 3rem;
         color: #fff;
-
+        
         > a {
             font-size: 1.2rem;
             color: blue;

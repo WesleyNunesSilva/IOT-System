@@ -16,8 +16,7 @@ export const Container = styled.div`
         display: flex;
         gap: 3rem;
         align-items: center;
-       
-        
+               
         > button {
             border-radius: 20px;
             padding: 8px 12px;
@@ -45,10 +44,8 @@ export const Container = styled.div`
             border: 1px solid #fff;
             border-radius: 10px;
 
-
             >img {
                 height: 6rem;
-                
                 border-radius: 50%;
             }
     
@@ -67,9 +64,7 @@ export const Container = styled.div`
                 }
             }
         }
-        }
-
-
+    }
 `
 export const Logout = styled.button `
     border: 0;

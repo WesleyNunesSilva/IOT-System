@@ -27,7 +27,7 @@ export function ClientsList () {
       fetchData()
     },[])
 
-      // search by name or nationality
+      // search by name
     const lowerSearchPerson = searchPerson.toLowerCase()
     const filteredList = data.filter(
         (item) => 
@@ -35,7 +35,7 @@ export function ClientsList () {
     );
 
     return(
-        <Container >
+        <Container>
             <Header showInput setSearchPerson={setSearchPerson}/>
             <header>
                 <h2>Clientes</h2>
@@ -52,16 +52,15 @@ export function ClientsList () {
 
             <Main>
                 <table className=''>
-                    <HeaderTable data={data} setData={setData}/>
+                    <HeaderTable/>
                     <tbody className='' >
                     {
                         filteredList.map((item) => (
                         <Card key={item.id}
-                            person = {item}
-                            ID={item.id}                                                         
+                            user={item}
+                            ID={item.id}                                                       
                         />                  
-                        )) 
-                                    
+                        ))                                    
                     }       
                     </tbody> 
                 </table>

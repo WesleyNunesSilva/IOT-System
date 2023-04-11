@@ -1,35 +1,51 @@
-import { FaRegAddressCard } from "react-icons/fa";
-import { Container } from "./styles";
+import { useState } from "react";
+import { Container} from "./styles";
 
-export function Card({person, ID, ...rest}) {
+import { Modal } from "../modal/modal";
 
-    const fullName = `${person.attributes.username}` 
+export function Card({user, ID, handleModal, ...rest}) {
 
-    return(
-        <Container  {...rest}>
-            <td className=''>
-                <span >
-                    {fullName}                       
-                </span>
+    const [openOrCloseModal, setOpenOrCloseModal] = useState(false)
+
+    function handleOpenModal() {
+        setOpenOrCloseModal(true)
+    }
+    function handleCloseModal() {
+        setOpenOrCloseModal(false)
+    }
+    
+    return(      
+        <>
+        <Container onClick={handleOpenModal}>                      
+            <td className=''>               
+                <span>{user.attributes.username}</span>               
             </td>
 
-            <td className=''>
-                <span>Magnetom skyra</span>
+            <td className=''>               
+                <span>{user.attributes.phone}</span>              
             </td>
 
-            <td >
-                <span className='status'>ATENÇÃO</span>
-            </td>     
+            <td>                      
+                <span>{user.attributes.address}</span>                  
+            </td>   
 
-            <td className=''>
-                <span>Balneário Camburiú - SC</span>
-            </td>       
+            <td className=''>              
+                <span>{user.attributes.email}</span>               
+            </td>                    
 
-            <td className=''>
-                <span>{person.id}</span>
-                
-            </td>  
-        </Container>
-            
+            <td className=''>                  
+                <span className='status'>{ID}</span>                              
+            </td>          
+        </Container>  
+            {
+                openOrCloseModal ? 
+                <Modal  
+                handleCloseModal={handleCloseModal} 
+                    user={user} 
+                    ID={user.id}
+                /> 
+                : null 
+            }              
+        </>          
     )
 }

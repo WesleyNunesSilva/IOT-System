@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 import { Aside, Container, Main, Element, ContentElement} from "./styles";
 import { IoIosArrowDown} from 'react-icons/io'
 import { AiOutlineExclamation } from  'react-icons/ai'
@@ -10,9 +13,26 @@ export function DashBoard() {
   const measure = 40
 
   const completedPercentage = Math.round(4 *10)
+
+  useEffect(() => {
+    const fetchData = async () => {
+
+      try {
+        const response = await axios.get(`http://localhost:3000/clients/1/dashboard`)
+        console.log(response)
+        //setMachineList(machine.data.data)
+  
+      } catch (error) {
+        console.log(error)
+        console.log(error.response)
+      }      
+    }
+      fetchData()
+  },[])
+
     return(
         <Container>
-          <Header showInput/>
+          <Header />
             <div className="select-user">
                 <IoIosArrowDown size={25}/>
                 <select name="clients" id="clients">
@@ -24,9 +44,8 @@ export function DashBoard() {
           <Main>
             
             <MyLineChart />
-
+            
             <Aside>
-
               <ContentElement low ='true'>
                 
                 <Element low ='true'>

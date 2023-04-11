@@ -1,22 +1,6 @@
-import { useState, useEffect } from 'react'
-
-import {BsSortAlphaDown, BsSortAlphaUp} from 'react-icons/bs'
 import { Container } from './styles'
 
-export function HeaderTable({data, setData}) {
-
-  const [sortedListName, setSortedListName] = useState([])
-  const [iconSortName, setIconSortName] = useState(false)
-
-  // useEffect(() => {
-  //   setSortedListName([...data].sort((a, b) => a.username.localeCompare(b.username)));
-    
-  // },[data])
-
-  const handleSortName = () => {
-    setIconSortName(!iconSortName)
-    setData(iconSortName ? sortedListName.reverse() : [...sortedListName])
-  }
+export function HeaderTable() {
 
     return (       
       <Container  className=''>
@@ -25,24 +9,24 @@ export function HeaderTable({data, setData}) {
             <span className=''>
               Nome
             </span>                       
-          </th>
-
-          <th className=''>
-            <span className=''>
-              Equipamento
-            </span>
-          </th>
-
-          <th className='status'>
-            <span>Status</span>
+          </th> 
+      
+          <th>
+            <span>Contato</span>
           </th>
 
           <th>
             <span>Local</span>
           </th>
-          
-          <th>
-            <span>Contato</span>
+
+          <th className=''>
+            <span className=''>
+              Email
+            </span>
+          </th>
+
+          <th className='status'>
+            <span>Status</span>
           </th>
         </tr>
       </Container>   

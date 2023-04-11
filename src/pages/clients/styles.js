@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
 
     > header {
-
         font-family: 'Poppins', 'sans-serif';
 
         padding: 3rem 8rem 1rem;
@@ -37,7 +36,6 @@ export const Container = styled.div`
         }
     }
 `
-
 export const Main = styled.main `
 
     padding: 1.5rem 8rem;
@@ -48,14 +46,13 @@ export const Main = styled.main `
         width: 100%;
     }
 
-    >div {
+    > div {
         padding: 2rem;
         display: flex;
-        justify-content: center;
+        justify-content: center;       
     }
 
-    .button-pagination {
-        
+    .button-pagination {        
         background-color: transparent;
         display: flex;
         align-items: center;
@@ -68,8 +65,7 @@ export const Main = styled.main `
                 color: #fff;
                 padding: 0.5rem 1rem;
                 border-radius: 8px;
-                background: linear-gradient(180deg, #F5821F 0%, #FF5C00 100%);
-                
+                background: linear-gradient(180deg, #F5821F 0%, #FF5C00 100%);               
             }
 
         }

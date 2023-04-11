@@ -24,7 +24,5 @@ export const Container = styled.div `
     > svg {
         margin-left: 1.6rem;
 
-    }
-
-    
+    }   
 `

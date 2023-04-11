@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-
 export const Form = styled.form`
     margin: auto;
 
@@ -49,12 +48,10 @@ export const Form = styled.form`
         border-radius: 8px;
 
         font-size: 1.6rem;
-
     } 
     
     > div {
-        a {
-            
+        a {            
             max-width: 30%;
         }
     }
