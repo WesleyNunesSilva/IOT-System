@@ -44,6 +44,7 @@ function AuthProvider ({children}) {
         sessionStorage.removeItem('@SUMedical-IOT:user')
 
         setData({})
+        
     }
 
     useEffect(() => {

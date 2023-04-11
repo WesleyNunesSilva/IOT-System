@@ -66,12 +66,11 @@ export const Container = styled.div`
         }
     }
 `
-export const Logout = styled.button `
+export const Logout = styled.div `
     border: 0;
     background: 0;
-
-    > svg {
+    
+    > a svg {
         color: #fff;
-        font-size: 3.6rem;
     }
 `

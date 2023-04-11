@@ -19,7 +19,7 @@ export function Header ({showInput, setSearchPerson}) {
            <div className="profile">          
                 <Link to='/' className="profile-with-img">
                     <div className="">
-                        <img src="https://github.com/wesleynunessilva.png" alt="" />
+                       
                         <div className="username">
                             <span>Bem-vindo.</span>
                             <strong>Wesley Nunes</strong>                        
@@ -42,8 +42,10 @@ export function Header ({showInput, setSearchPerson}) {
               onChange={(e) => setSearchPerson(e.target.value)} 
             />
 
-            <Logout onClick={singOut}>
-                <RiShutDownLine />
+            <Logout>
+                <Link to='/' onClick={singOut}>
+                    <RiShutDownLine size={36} />
+                </Link>
             </Logout>
         </Container>
     )

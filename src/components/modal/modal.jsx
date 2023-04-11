@@ -1,12 +1,11 @@
 import { Container, ContentModal, NewDevice} from './styles.js'
 import { FiPlus, FiX, FiArrowLeft } from "react-icons/fi";
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import { useClient } from '../../hooks/clients'
 
-export function Modal({handleCloseModal, user, ID}) {
+export function Modal({handleCloseModal, user}) {
 
   const [newDevices, setNewDevices] = useState(false)
 

@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 
 import { Aside, Container, Main, Element, ContentElement} from "./styles";
 import { IoIosArrowDown} from 'react-icons/io'
@@ -9,84 +8,89 @@ import { Header } from "../../components/header";
 import { MyLineChart } from "../../components/chart";
 import { ProgressBar } from "../../components/progressbar";
 
+import { useClient } from "../../hooks/clients";
+
 export function DashBoard() {
   const measure = 40
 
   const completedPercentage = Math.round(4 *10)
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const { getDashboard } = useClient()
+  const { eviceId } = useClient()
+  const { machineList } = useClient()//
 
-      try {
-        const response = await axios.get(`http://localhost:3000/clients/1/dashboard`)
-        console.log(response)
-        //setMachineList(machine.data.data)
-  
-      } catch (error) {
-        console.log(error)
-        console.log(error.response)
-      }      
-    }
-      fetchData()
+  useEffect(() => {
+
+    getDashboard()
+
   },[])
 
-    return(
-        <Container>
-          <Header />
-            <div className="select-user">
-                <IoIosArrowDown size={25}/>
-                <select name="clients" id="clients">
-                    <option value=""></option>
-                    <option value="clients">numero 1</option>
-                    <option value="clients">Unimagem - Estrela (RS) </option>
-                </select>
-            </div>
-          <Main>
+  return(
+    <Container>
+      <Header />
+        <div className="select-user">
+          <IoIosArrowDown size={25}/>
+          <select name="clients" id="clients">
+            {
+              machineList.map((machine) => (
+                <option 
+                  key={machine.id} 
+                  value={machine.attributes.name}
+                >
+                  {machine.attributes.name}
+                </option>
+
+              ))
+            }
+                                       
+          </select>
+        </div>
+      <Main>
             
-            <MyLineChart />
+        <MyLineChart />
             
-            <Aside>
-              <ContentElement low ='true'>
+        <Aside>
+          <ContentElement low ='true'>
                 
-                <Element low ='true'>
-                  <h3 className="helio ">He</h3>
+            <Element low ='true'>
+              <h3 className="helio ">He</h3>
+              <span >
+                <AiOutlineExclamation size={20} />
+              </span>
+            </Element>
+            <span>Hélio</span>
+
+            <div className="measure" >
+              <span>Medição atual</span>
+              <span>40%</span>
+
+            </div>
+
+            <ProgressBar progress = {completedPercentage} />
+          </ContentElement>
+
+          <ContentElement >
+            <Element >
+              <h3 className="cht " >CHT</h3>  
                   <span >
-                    <AiOutlineExclamation size={20} />
-                  </span>
-                </Element>
-                <span>Hélio</span>
+                <AiOutlineExclamation size={20} />
+              </span>
+            </Element>
+            <span>ColdHead</span>
 
-                <div className="measure" >
-                  <span>Medição atual</span>
-                  <span>40%</span>
+            <div className="measure">
+              <span>Medição atual</span>
+              <span>40%</span>
 
-                </div>
+            </div>
 
-                <ProgressBar progress = {completedPercentage} />
-              </ContentElement>
-
-              <ContentElement >
-                <Element >
-                  <h3 className="cht " >CHT</h3>  
-                  <span >
-                    <AiOutlineExclamation size={20} />
-                  </span>
-                </Element>
-                <span>ColdHead</span>
-
-                <div className="measure">
-                  <span>Medição atual</span>
-                  <span>40%</span>
-
-                </div>
-
-                <ProgressBar progress = {completedPercentage} />
-              </ContentElement>
+            <ProgressBar progress = {completedPercentage} />
+          </ContentElement>
               
-            </Aside>
+        </Aside>
 
-          </Main>
+      </Main>
 
-        </Container>
-    )
+    </Container>
+  )
 }

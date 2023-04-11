@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.tr `
 
     font-family: 'Poppins', 'sans-serif';
+    cursor: pointer;
 
     border-bottom: 1px solid #1E1E1E4A;
     &:nth-child(even) {

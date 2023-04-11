@@ -7,9 +7,10 @@ function ClientProvider ({children}) {
 
     const [data, setData] = useState({})
 
-    const [user, setUser] = useState({})
-    const [machineList, setMachineList] = useState([])
-    const [clientId, setClientId] = useState()
+    const [ user, setUser] = useState({})
+    const [ machineList, setMachineList ] = useState([])
+    const [ clientId, setClientId ] = useState()
+    const [ deviceId, setDeviceId ] = useState()
 
     async function registerDevice (device) {
         try {   
@@ -54,14 +55,33 @@ function ClientProvider ({children}) {
         } 
 
         setClientId(user.relationships.client.data.id)
+        
     }
 
+    async function getDashboard () {
+        try {
+
+            const response = await axios.get(`http://localhost:3000/clients/${clientId}/dashboard`)
+            //setDeviceId(response.relationships.device.data.id)
+            console.log(response)
+            console.log(user)
+            console.log(machineList)         
+      
+        } catch (error) {
+            console.log(error)
+            console.log(error.response)
+        } 
+        
+    }
+    
     return(
         <ClientContext.Provider 
             value={{ 
               registerDevice, 
               handleClient,
+              getDashboard,
               user,
+              setDeviceId,
               clientId,
               machineList
               
