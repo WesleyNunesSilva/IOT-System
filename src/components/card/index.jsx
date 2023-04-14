@@ -18,7 +18,7 @@ export function Card({user, ID, handleModal, ...rest}) {
         <>
         <Container onClick={handleOpenModal}>                      
             <td className=''>               
-                <span>{user.attributes.username}</span>               
+                <span>{user.attributes.name}</span>               
             </td>
 
             <td className=''>               
@@ -34,13 +34,13 @@ export function Card({user, ID, handleModal, ...rest}) {
             </td>                    
 
             <td className=''>                  
-                <span className='status'>{ID}</span>                              
+                <span className='status'>{user.attributes.status}</span>                              
             </td>          
         </Container>  
             {
                 openOrCloseModal ? 
                 <Modal  
-                handleCloseModal={handleCloseModal} 
+                    handleCloseModal={handleCloseModal} 
                     user={user} 
                     ID={user.id}
                 /> 

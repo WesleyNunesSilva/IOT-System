@@ -13,6 +13,33 @@ function ClientProvider ({children}) {
     //const [ deviceId, setDeviceId ] = useState()
     const [ machineId, setMachineId ] = useState()
 
+    async function handleUserRegister(user) { 
+        try {   
+            //await validations.validate(user.data);
+            const response = await axios.post("http://localhost:3000/clients/register", user, {
+                headers: { 'Content-Type': 'application/vnd.api+json' }
+            })
+            console.log(response)
+            axios.defaults.headers.post["Content-Type"] = 'application/vnd.api+json'
+      
+            alert('Cliente cadastrado com sucesso')
+            
+        } catch (error) {
+            if(error.response) {
+              alert(error.response.data.errors[0].title)
+                console.log(error.response)
+                console.log(error.message)
+      
+                console.log(user)
+            } else {
+              alert('Ocorreu um erro ao enviar os dados. Por favor, tente novamente.')
+      
+              console.log(error)
+              console.log(user)
+            }
+        }
+      }
+
     async function registerDevice (device) {
         try {   
             //await validations.validate(user.data);                 
@@ -23,7 +50,7 @@ function ClientProvider ({children}) {
             axios.defaults.headers.post["Content-Type"] = 'application/vnd.api+json'
 
             setData({response})
-
+            alert('Equipamento cadastrado com sucesso')
             console.log(response)
             console.log(response.data)
 
@@ -43,21 +70,18 @@ function ClientProvider ({children}) {
     }
 
     async function handleClient(user) {
-
+        setUser(user)
         try {
-            const machine = await axios.get(`http://localhost:3000/clients/${clientId}/devices`)
-    
-            setMachineList(machine.data.data)
-            setUser(user)
-
+          const machine = await axios.get(`http://localhost:3000/clients/${clientId}/devices`)
+          setMachineList(machine.data.data)
+          
+          
         } catch (error) {
-            console.log(user)
-            console.log(error)
-        } 
-
-        setClientId(user.relationships.client.data.id)
-        
-    }
+          console.log(user)
+          console.log(error)
+        }
+        setClientId(user.id)
+      }
 
     // async function getAllMachines () {
     //     try {
@@ -87,33 +111,11 @@ function ClientProvider ({children}) {
             console.log(error.response)
         }
     }
-    console.log(machineId)
-    // useEffect(() => {
-        
-    // }, [machineList])
-    // async function getClientDashboard (deviceId) {
-    //     try {
-    //         const response = await axios.get(`http://localhost:3000/clients/${clientId}/devices/${deviceId}`)
-    //         console.log(response)
-    //         console.log(deviceId)
-            
-    //     } catch (error) {
-    //         if(error.response) {
-    //             console.log(deviceId)
-    //             console.log(error.response)
-    //             alert(error.response.data.errors[0].detail)
-    //       } else {
-    //         alert('Não foi possivel entrar')
-    //         console.log(error)
-    //       }
-    //     }
-    // }
 
     async function machineData () {
         try {
             const response = await axios.get(`http://localhost:3000/devices/${machineId}/history`)
             console.log(response)
-            console.log(axios)
             
         } catch (error) {
             if(error.response) {
@@ -130,8 +132,6 @@ function ClientProvider ({children}) {
         }
     }
     
-    
-    
     return(
         <ClientContext.Provider 
             value={{ 
@@ -139,6 +139,7 @@ function ClientProvider ({children}) {
               handleClient,
               getClientDashboard,
               machineData,
+              handleUserRegister,
               //device,
               user,
               clientId,

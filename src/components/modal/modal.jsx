@@ -81,6 +81,7 @@ export function Modal({handleCloseModal, user}) {
     handleClient(user)
 
   },[clientId])
+  console.log(user)
 
   function handleGetClientDashboard (deviceId) {   
       getClientDashboard(deviceId)

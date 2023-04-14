@@ -20,20 +20,18 @@ export function ClientsList () {
     useEffect(() => {
       const fetchData = async () => {
   
-        const user = await axios.get(`http://localhost:3000/users`)
+        const user = await axios.get(`http://localhost:3000/clients`)
         setData(user.data.data)
+        
         
       }
       fetchData()
     },[])
+    
 
-      // search by name
-    const lowerSearchPerson = searchPerson.toLowerCase()
-    const filteredList = data.filter(
-        (item) => 
-        item.attributes.username.toLowerCase().includes(lowerSearchPerson)
-    );
-
+    const filteredData = data.filter(item => 
+        item.attributes.name.toLowerCase().includes(searchPerson.toLowerCase())
+        )
     return(
         <Container>
             <Header showInput setSearchPerson={setSearchPerson}/>
@@ -55,7 +53,7 @@ export function ClientsList () {
                     <HeaderTable/>
                     <tbody className='' >
                     {
-                        filteredList.map((item) => (
+                        filteredData.map((item) => (
                         <Card key={item.id}
                             user={item}
                             ID={item.id}                                                       

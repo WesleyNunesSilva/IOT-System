@@ -1,13 +1,14 @@
-import axios from "axios";
-
 import { useState } from "react";
 import { Form, Input} from './styles'
 
 import validations from "./validation";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useClient } from '../../hooks/clients'
 
 export function FormRegister() {
+
+  const { handleUserRegister } = useClient()
 
   const navigate = useNavigate()
 
@@ -36,73 +37,48 @@ export function FormRegister() {
     });
   };
   
-const handleChangeEmail = (event) => {
-  setUser({
-    ...user,
-    data: {
-      ...user.data,
-      attributes: {
-        ...user.data.attributes, 
-        email: event.target.value 
+  const handleChangeEmail = (event) => {
+    setUser({
+      ...user,
+      data: {
+        ...user.data,
+        attributes: {
+          ...user.data.attributes, 
+          email: event.target.value 
+        }
       }
-    }
-  });
-};
+    });
+  };
 
-const handleChangeAddress = (event) => {
-  setUser({
-    ...user,
-    data: {
-      ...user.data,
-      attributes: {
-        ...user.data.attributes, 
-        address: event.target.value 
+  const handleChangeAddress = (event) => {
+    setUser({
+      ...user,
+      data: {
+        ...user.data,
+        attributes: {
+          ...user.data.attributes, 
+          address: event.target.value 
+        }
       }
-    }
-  });
-};
+    });
+  };
 
-const handleChangePhone = (event) => {
-  setUser({
-    ...user,
-    data: {
-      ...user.data,
-      attributes: {
-        ...user.data.attributes, 
-        phone: event.target.value 
+  const handleChangePhone = (event) => {
+    setUser({
+      ...user,
+      data: {
+        ...user.data,
+        attributes: {
+          ...user.data.attributes, 
+          phone: event.target.value 
+        }
       }
-    }
-  });
-};
+    });
+  };
 
-async function handleUserRegister(event) {
-  event.preventDefault();
-  try {   
-
-      await validations.validate(user.data);
-      const response = await axios.post("http://localhost:3000/clients/register", user, {
-          headers: { 'Content-Type': 'application/vnd.api+json' }
-      })
-      console.log(response)
-      axios.defaults.headers.post["Content-Type"] = 'application/vnd.api+json'
-
-      alert('Cliente cadastrado com sucesso')
-      navigate('/')
-  } catch (error) {
-      if(error.response) {
-        alert(error.response.data.errors[0].title)
-          console.log(error.response)
-          console.log(error.message)
-
-          console.log(user)
-      } else {
-        alert('Ocorreu um erro ao enviar os dados. Por favor, tente novamente.')
-
-        console.log(error)
-        console.log(user)
-      }
+  function handleRegisterClient() {
+    handleUserRegister(user)
   }
-}
 
   return (
     <Form >
@@ -149,13 +125,14 @@ async function handleUserRegister(event) {
       </div>
 
       <div>
-          <button
+          <Link
+            to='/'
             type="submit" 
             className="add-client"
-            onClick={handleUserRegister}
+            onClick={handleRegisterClient}
           >
             Adicionar
-          </button>
+          </Link>
       </div>
     </Form>
     
