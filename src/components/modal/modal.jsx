@@ -1,5 +1,6 @@
 import { Container, ContentModal, NewDevice} from './styles.js'
 import { FiPlus, FiX, FiArrowLeft } from "react-icons/fi";
+import { TbSearch } from 'react-icons/tb'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ export function Modal({handleCloseModal, user}) {
   const { handleClient } = useClient()
   const { clientId } = useClient()
   const { machineList } = useClient()
+  const { getClientDashboard } = useClient()
  
   const [device, setDevice] = useState({
       data:{
@@ -80,6 +82,11 @@ export function Modal({handleCloseModal, user}) {
 
   },[clientId])
 
+  function handleGetClientDashboard (deviceId) {   
+      getClientDashboard(deviceId)
+  }
+
+
   return(
     <>
       <Container>
@@ -87,49 +94,52 @@ export function Modal({handleCloseModal, user}) {
           newDevices ?
 
             <NewDevice>
-              <div className='back-to-device-list'>
+              <div className='back-to-device-list close-modal '>
                 <button onClick={handleNewDevice}><FiArrowLeft size={20} /></button>
                 <button onClick={handleCloseModal}> <FiX size={20}/></button>
               </div>
+              <div>
+
+                <div className='inputs-register-device'>
+                  <div>
+                    <label htmlFor="device-name">Nome do Equipamento:</label>
+                    <input 
+                      type="text" 
+                      id='device-name' 
+                      onClick={handleChangeName}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="device-ip">IP do equipamento:</label>
+                    <input 
+                      type="text" 
+                      id='device-ip'
+                      onClick={handleChangeIp}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email">Email do cliente:</label>
+                    <input 
+                      type="text" 
+                      id='email'
+                      onClick={handleChangeEmail}
+                    />
+                  </div>
+                </div>
+
+                <div className='register-device'>
+                  <button 
+                    onClick={handleRegisterDevice}
+                    type='submit'  
+                  > 
+                    <FiPlus size={20}/>
+                    Cadastrar
+                  </button>
+                </div>
+              </div>
                     
-              <div className='inputs-register-device'>
-                <div>
-                  <label htmlFor="device-name">Nome do Equipamento:</label>
-                  <input 
-                    type="text" 
-                    id='device-name' 
-                    onClick={handleChangeName}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="device-ip">IP do equipamento:</label>
-                  <input 
-                    type="text" 
-                    id='device-ip'
-                    onClick={handleChangeIp}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email">Email do cliente:</label>
-                  <input 
-                    type="text" 
-                    id='email'
-                    onClick={handleChangeEmail}
-                  />
-                </div>
-              </div>
-
-              <div className='register-device'>
-                <button 
-                  onClick={handleRegisterDevice}
-                  type='submit'  
-                > 
-                  <FiPlus size={20}/>
-                  Cadastrar
-                </button>
-              </div>
 
             </NewDevice>
 
@@ -145,18 +155,26 @@ export function Modal({handleCloseModal, user}) {
 
               <div className='main-content'>
                 <div className='device-list'>
-                  <div>
-                      Equipamentos:
-                  </div>
+                  
+                  <h3>
+                    Equipamentos:
+                  </h3>
+                  
                   <ul>
                     {
-                      machineList.map((item)=> (    
-                        <Link to={`/dashboard/${clientId}`}>
-                          <li key={clientId} className='machine'>
-                            {item.attributes.name}
+                      machineList.map((item)=> (     
+                        <Link         
+                          to={`/dashboard/${item.id}`}
+                          className='machine'
+                        >                    
+                          <li
+                            onClick={() => handleGetClientDashboard(item.id)} 
+                            key={item.id}
+                            >   
+                            {item.attributes.name} 
                           </li>
-                        </Link>                               
-                        
+                          <TbSearch size={20} />
+                        </Link> 
                       ))
                     }
                   </ul>

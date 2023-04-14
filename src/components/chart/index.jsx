@@ -12,6 +12,16 @@ export function MyLineChart() {
     ['sab', 66],
     ['dom', 58]
   ];
+  const dataMonth = [
+    ["dias", "temperatura"],
+    ["seg", 60],
+    ["ter", 65],
+    ["qua", 60],
+    ["qui", 62],
+    ['sex', 80],
+    ['sab', 66],
+    ['dom', 58]
+  ];
 
   const options = {
     title: "Helio",

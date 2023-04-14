@@ -15,15 +15,19 @@ export function DashBoard() {
 
   const completedPercentage = Math.round(4 *10)
 
-  const { getDashboard } = useClient()
-  const { eviceId } = useClient()
+  const { machineData } = useClient()
+  const { machineId } = useClient()
   const { machineList } = useClient()//
+  const { getClientDashboard } = useClient()
 
   useEffect(() => {
-
-    getDashboard()
+    machineData()
 
   },[])
+
+//   function handleGetClientDashboard (machineId) {   
+//     getClientDashboard(machineId)
+// }
 
   return(
     <Container>
@@ -34,6 +38,7 @@ export function DashBoard() {
             {
               machineList.map((machine) => (
                 <option 
+                  onClick={() => handleGetClientDashboard(item.id)}
                   key={machine.id} 
                   value={machine.attributes.name}
                 >

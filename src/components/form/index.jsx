@@ -138,12 +138,12 @@ async function handleUserRegister(event) {
           />
       </div>
 
-      <div className="password content-input">
-        <label htmlFor="password">Celular</label>
+      <div className="cel content-input">
+        <label htmlFor="cel">Celular</label>
           <Input 
-            type='password'
+            type='number'
             className='input-register'
-            id='password'
+            id='cel'
             onChange={handleChangePhone}
           />
       </div>

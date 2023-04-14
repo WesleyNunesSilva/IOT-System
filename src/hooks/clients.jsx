@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, createContext, useState} from "react";
+import { useContext, createContext, useState, useEffect} from "react";
 
 export const ClientContext = createContext({})
 
@@ -10,7 +10,8 @@ function ClientProvider ({children}) {
     const [ user, setUser] = useState({})
     const [ machineList, setMachineList ] = useState([])
     const [ clientId, setClientId ] = useState()
-    const [ deviceId, setDeviceId ] = useState()
+    //const [ deviceId, setDeviceId ] = useState()
+    const [ machineId, setMachineId ] = useState()
 
     async function registerDevice (device) {
         try {   
@@ -58,30 +59,88 @@ function ClientProvider ({children}) {
         
     }
 
-    async function getDashboard () {
-        try {
+    // async function getAllMachines () {
+    //     try {
 
-            const response = await axios.get(`http://localhost:3000/clients/${clientId}/dashboard`)
-            //setDeviceId(response.relationships.device.data.id)
-            console.log(response)
-            console.log(user)
-            console.log(machineList)         
+    //         const response = await axios.get(`http://localhost:3000/clients/${clientId}/dashboard`)
+    //         //setDeviceId(response.relationships.device.data.id)
+    //         console.log(response)
+    //         console.log(user)
+    //         console.log(machineList)         
       
+    //     } catch (error) {
+    //         console.log(error)
+    //         console.log(error.response)
+    //     }       
+    // }
+
+    async function getClientDashboard (deviceId) {
+        setMachineId(deviceId)
+        try {
+            const response = await axios.get(`http://localhost:3000/clients/${clientId}/devices/${deviceId}`)
+            console.log(response)
+            console.log(deviceId)
+            
         } catch (error) {
+            console.log(deviceId)
             console.log(error)
             console.log(error.response)
-        } 
-        
+        }
     }
+    console.log(machineId)
+    // useEffect(() => {
+        
+    // }, [machineList])
+    // async function getClientDashboard (deviceId) {
+    //     try {
+    //         const response = await axios.get(`http://localhost:3000/clients/${clientId}/devices/${deviceId}`)
+    //         console.log(response)
+    //         console.log(deviceId)
+            
+    //     } catch (error) {
+    //         if(error.response) {
+    //             console.log(deviceId)
+    //             console.log(error.response)
+    //             alert(error.response.data.errors[0].detail)
+    //       } else {
+    //         alert('Não foi possivel entrar')
+    //         console.log(error)
+    //       }
+    //     }
+    // }
+
+    async function machineData () {
+        try {
+            const response = await axios.get(`http://localhost:3000/devices/${machineId}/history`)
+            console.log(response)
+            console.log(axios)
+            
+        } catch (error) {
+            if(error.response) {
+                console.log(data)
+                console.log(device)
+                console.log(error.response)
+                alert(error.response.data.errors[0].detail)
+          } else {
+            alert('Não foi possivel entrar')
+            console.log(data)
+
+            console.log(error)
+          }
+        }
+    }
+    
+    
     
     return(
         <ClientContext.Provider 
             value={{ 
               registerDevice, 
               handleClient,
-              getDashboard,
+              getClientDashboard,
+              machineData,
+              //device,
               user,
-              setDeviceId,
               clientId,
               machineList
               

@@ -23,15 +23,39 @@ export const Container = styled.div`
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background: ${({theme}) => theme.colors.orange_600};
+            background: ${({theme}) => theme.colors.bg_blue_500};
 
             color: #fff;
 
-            padding: 0.8rem;
-            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
 
         }
     } 
+
+    .close-modal {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        color: #fff;
+
+        border: none;
+        padding: 1rem 2rem;
+
+        background: ${({theme}) => theme.colors.bg_blue_500};
+        > button {
+            background: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        > h2 {
+    
+        font-size: 2.2rem;
+        }
+    }
 `
 export const ContentModal = styled.div`
 
@@ -45,58 +69,46 @@ export const ContentModal = styled.div`
     
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
-
-    > h2 {
-        margin-left: 4rem;
-        font-size: 2.2rem;
-    }
-
-    .close-modal {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        
-        color: #fff;
-
-        border: none;
-        padding: 1rem;
-
-        background: ${({theme}) => theme.colors.orange_600};
-        > button {
-            background: none;
-            color: #fff;
-            display: flex;
-            align-items: center;
-        }
-
-    }
-
+    
     .main-content {
-        padding: 2rem;
+        padding: 0 2rem 2rem;
     }
 
     .device-list {
         display: flex;
-        align-items: center;
         flex-direction: column;
+
+        > h3 {
+                margin-bottom: 2rem;
+                text-align: start;
+            }
+
         > ul {
             display: flex;
             flex-direction: column;
-            text-align: center;
+            
             overflow-y: auto;
 
             width: 100%;
-            gap: 1rem;
-   
+            gap: 1rem;    
+  
         }
     }
 
     .machine {
         color: #fff;
+       
         padding: 0.5rem;
         list-style:none;
-        background: ${({theme}) => theme.colors.orange_600};
-        border-radius: 8px;
+        background: ${({theme}) => theme.colors.bg_blue_500};
+        border-radius: 5px;
+
+        width: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
     }
 `
 export const NewDevice = styled.form`
@@ -107,10 +119,13 @@ export const NewDevice = styled.form`
     flex-direction: column;
 
     gap: 2rem;
-    padding: 3rem;
-
+    
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+
+    > div {
+        padding: 0rem 2rem 2rem;
+    }
 
     .back-to-device-list {
         display: flex;
@@ -125,7 +140,7 @@ export const NewDevice = styled.form`
     .inputs-register-device {
         
         display: flex;
-        flex-wrap:wrap;
+        flex-wrap: wrap;
 
         flex-direction: column;
 
@@ -138,7 +153,7 @@ export const NewDevice = styled.form`
 
             > input {
                 border: 1px solid ;
-                border-radius: 8px;
+                border-radius: 5px;
                 padding: 0.8rem;
                 width: 100%;
     
